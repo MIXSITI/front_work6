@@ -39,7 +39,11 @@ coffee-shop/
 Запуск
 
 backend: npm start
+backend: npm install
+backend: npm i express nanoid
+backend: npm i -D swagger-jsdoc swagger-ui-express
 
+frontend: npm install
 frontend: npm start
 
 \------------------------------
