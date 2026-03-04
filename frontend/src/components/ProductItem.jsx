@@ -1,12 +1,6 @@
 export default function ProductItem({ product, onEdit, onDelete }) {
   if (!product) return <div>Ошибка загрузки товара</div>;
 
-  const handleDelete = () => {
-    if (window.confirm(`Удалить "${product.title}"?`)) {
-      onDelete(product.id);
-    }
-  };
-
   return (
     <div className="menu-card">
       <h3>{product.title}</h3>
@@ -15,15 +9,16 @@ export default function ProductItem({ product, onEdit, onDelete }) {
       <p><strong>Цена:</strong> {product.price} ₽</p>
       <p><strong>Остаток:</strong> {product.stock} шт.</p>
 
-      <div style={{ marginTop: '15px' }}>
-        <button className="btn edit" onClick={() => onEdit(product)}>Редактировать</button>
-        <button 
-  className="btn delete" 
-  onClick={() => onDelete(product.id)}
->
-  Удалить
-</button>
+      {/* ← ЭТОТ div нужен для стилей */}
+      <div className="menu-card__actions">
+        <button className="btn edit" onClick={() => onEdit(product)}>
+          Редактировать
+        </button>
+        <button className="btn delete" onClick={() => onDelete(product.id)}>
+          Удалить
+        </button>
       </div>
     </div>
   );
 }
+

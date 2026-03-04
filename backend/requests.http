@@ -1,14 +1,29 @@
-﻿### Получить список пользователей
-GET http://localhost:3000/api/users
+﻿### Получить список всех товаров кофейни
+GET http://localhost:3001/api/products
 
-### Получить пользователя по ID
-GET http://localhost:3000/api/users/ID_ПОЛЬЗОВАТЕЛЯ
+### Получить товар по ID
+GET http://localhost:3001/api/products/a1B2c3
 
-### Создать пользователя
-POST http://localhost:3000/api/users
+### Создать новый товар
+POST http://localhost:3001/api/products
+Content-Type: application/json
 
-### Частично обновить пользователя
-PATCH http://localhost:3000/api/users/ID_ПОЛЬЗОВАТЕЛЯ
+{
+  "title": "Флэт уайт",
+  "category": "Напитки",
+  "description": "Кофе на основе эспрессо с молоком",
+  "price": 350,
+  "stock": 10
+}
 
-### Удалить пользователя
-DELETE http://localhost:3000/api/users/ID_ПОЛЬЗОВАТЕЛЯ
+### Частично обновить товар
+PATCH http://localhost:3001/api/products/a1B2c3
+Content-Type: application/json
+
+{
+  "price": 360,
+  "stock": 8
+}
+
+### Удалить товар
+DELETE http://localhost:3001/api/products/a1B2c3

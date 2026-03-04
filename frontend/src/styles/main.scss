@@ -1,138 +1,221 @@
-@import 'variables';
+// ===== ПЕРЕМЕННЫЕ =====
+$bg-body: #f9f5f0;
+$color-primary: #8b5a2b;
+$color-accent: #f0c27b;
+$color-danger: #e26a6a;
+$radius-card: 12px;
+$radius-btn: 6px;
 
-.app-container {
+// ===== МИКСИН ДЛЯ КНОПОК =====
+@mixin btn-base($bg, $color: #fff) {
+  padding: 8px 14px;
+  border-radius: $radius-btn;
+  border: none;
+  cursor: pointer;
+  background-color: $bg;
+  color: $color;
+  font-size: 14px;
+  transition: 0.2s ease;
+  font-family: inherit;
+
+  &:hover {
+    background-color: darken($bg, 8%);
+  }
+}
+
+// ===== БАЗОВЫЕ СТИЛИ =====
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: $bg-body;
+}
+
+.app {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
-}
+  padding: 20px;
 
-.header {
-  text-align: center;
-  margin-bottom: 40px;
+  header {
+    text-align: center;
+    margin-bottom: 20px;
 
-  h1 {
-    color: $coffee-brown;
-    font-size: 2.8rem;
-    margin: 0;
+    h1 {
+      font-size: 32px;
+      color: $color-primary;
+      letter-spacing: 1px;
+      margin: 0;
+    }
   }
 }
 
-.btn {
-  @include button;
-
-  &.primary { background: $accent-gold; }
-  &.secondary { background: #eee; color: #333; }
-  &.edit { background: #3498db; }
-  &.delete { background: $danger-red; }
-
-  margin: 8px 4px;
+// ===== КНОПКА "ДОБАВИТЬ" (ИСПРАВЛЕНО) =====
+.add-button-container {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
+.btn-add {
+  @include btn-base($color-primary);
+  padding: 12px 24px; // Больше кнопка
+  font-size: 16px;
+  font-weight: 500;
+}
+
+// ===== ПОИСК И КАТЕГОРИИ =====
+.controls {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e8e0d5;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+  }
+
+  &::placeholder {
+    color: #8b7a6f;
+  }
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category-btn {
+  @include btn-base(#f0e0d0, #3c2a21);
+  padding: 8px 20px;
+  font-size: 14px;
+  border: 2px solid transparent;
+
+  &.active {
+    background-color: $color-primary;
+    color: white;
+    border-color: $color-primary;
+  }
+}
+
+// ===== СЕТКА КАРТОЧЕК =====
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
 }
 
-.product-card {
-  @include card;
+// ===== КАРТОЧКА ТОВАРА =====
+.menu-card {
+  background: #fff;
+  border-radius: $radius-card;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 16px 18px;
+  border: 1px solid #f0e0d0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   h3 {
-    margin: 0 0 12px;
-    color: $coffee-brown;
+    margin: 0 0 8px;
+    color: #3c2a21;
+    font-size: 20px;
   }
 
-  .category {
-    font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 8px;
+  p {
+    margin: 4px 0;
+    color: #594a4e;
+    font-size: 14px;
+
+    strong {
+      color: #3c2a21;
+    }
   }
 
-  .description {
-    margin: 12px 0;
-    line-height: 1.5;
-  }
-
-  .price {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: $dark-brown;
-    margin: 12px 0;
-  }
-
-  .stock {
-    color: #555;
-    margin-bottom: 16px;
-  }
-
-  .actions {
+  &__actions {
+    margin-top: 15px;
     display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    gap: 10px;
   }
 }
 
-.error-message {
-  background: #ffebee;
-  color: #c62828;
-  padding: 16px;
-  border-radius: 8px;
-  margin: 20px 0;
-  text-align: center;
+// ===== КНОПКИ В КАРТОЧКАХ =====
+.btn {
+  &.edit {
+    @include btn-base($color-accent, #3c2a21);
+    flex: 1;
+  }
+
+  &.delete {
+    @include btn-base($color-danger);
+    flex: 1;
+  }
 }
 
+// ===== МОДАЛКА =====
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .modal {
-  background: white;
-  border-radius: 12px;
-  padding: 32px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 420px;
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 
   h2 {
-    margin: 0 0 24px;
-    color: $coffee-brown;
+    margin-top: 0;
+    margin-bottom: 12px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
 
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-weight: 500;
-    }
-
-    input, textarea {
-      padding: 10px 14px;
-      border: 1px solid #ccc;
+    input,
+    textarea {
+      padding: 8px 10px;
       border-radius: 6px;
-      font-size: 1rem;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 14px;
     }
 
     textarea {
-      min-height: 90px;
       resize: vertical;
+      min-height: 60px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
     }
   }
-
-  .modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 24px;
-  }
 }
+
+

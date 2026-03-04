@@ -1,8 +1,9 @@
 const BASE_URL = '/api/products';
 
-export const getProducts = () => fetch(BASE_URL).then(r => r.json());
+export const getProducts = () =>
+  fetch(BASE_URL).then(r => r.json());
 
-export const createProduct = (data) => 
+export const createProduct = (data) =>
   fetch(BASE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
