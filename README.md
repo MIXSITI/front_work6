@@ -69,7 +69,6 @@ frontend: npm start
 
 Переменные (6 шт.):
 
-text
 
 $bg-body: #f9f5f0;           // Бежевый фон
 
@@ -81,7 +80,6 @@ $radius-card: 12px;           // Скругления
 
 Миксин кнопок:
 
-text
 
 @mixin btn-base($bg, $color: #fff) {
 
@@ -97,7 +95,6 @@ background: $bg; color: $color;
 
 Вложенность (карточка товара):
 
-text
 
 .menu-card {
 
