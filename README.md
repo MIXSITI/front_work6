@@ -93,7 +93,7 @@ p { strong { color: #3c2a21; } }
 &\_\_actions { display: flex; gap: 10px; }
 
 }
-
+<img width="346" height="325" alt="image" src="https://github.com/user-attachments/assets/017e3b69-0803-43c6-9c73-a0580577d92a" />
 
 \----------------------------
 
@@ -136,6 +136,7 @@ POST   /api/products           // req.body → push()
 PATCH  /:id                    // Object.assign(req.body)
 
 DELETE /:id                    // splice(req.params.id)
+<img width="747" height="521" alt="image" src="https://github.com/user-attachments/assets/34e378e2-2243-4000-b779-07155ebd749c" />
 
 \------------------------------------------
 
@@ -164,6 +165,7 @@ GET  localhost:3001/api/products    → 200 [6 товаров]
 POST localhost:3001/api/products    → 201 {"id": "new456", ...}
 
 DELETE localhost:3001/api/products/abc123 → 204
+<img width="1391" height="1031" alt="image" src="https://github.com/user-attachments/assets/266abe85-0495-4edc-a539-9d76730cbc0d" />
 
 \----------------------------------------
 
@@ -210,6 +212,7 @@ text
 package.json: "proxy": "http://localhost:3001"
 
 Backend CORS: origin: 'http://localhost:3000'
+<img width="1603" height="931" alt="image" src="https://github.com/user-attachments/assets/8f1e9c74-f468-4467-a2b1-c1542ecf0ed2" />
 
 \--------------------------------------------
 
@@ -258,11 +261,7 @@ js
 \*/
 
 Swagger UI: localhost:3001/api-docs
+<img width="1868" height="960" alt="image" src="https://github.com/user-attachments/assets/39855cff-5846-41ff-af0b-bafe2641eb83" />
 
-5 эндпоинтов с примерами
-
-"Try it out" тестирование
-
-Автогенерация из JSDoc
 
 
