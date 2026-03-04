@@ -30,7 +30,7 @@ coffee-shop/
 
 │   │   └── index.js
 
-│   └── package.json            ← proxy: "http://localhost:3001"
+│   └── package.json            
 
 ├── requests.http               ← ПРАКТИКА №3: Postman
 
