@@ -1,0 +1,138 @@
+@import 'variables';
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  h1 {
+    color: $coffee-brown;
+    font-size: 2.8rem;
+    margin: 0;
+  }
+}
+
+.btn {
+  @include button;
+
+  &.primary { background: $accent-gold; }
+  &.secondary { background: #eee; color: #333; }
+  &.edit { background: #3498db; }
+  &.delete { background: $danger-red; }
+
+  margin: 8px 4px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  @include card;
+
+  h3 {
+    margin: 0 0 12px;
+    color: $coffee-brown;
+  }
+
+  .category {
+    font-size: 0.95rem;
+    color: #777;
+    margin-bottom: 8px;
+  }
+
+  .description {
+    margin: 12px 0;
+    line-height: 1.5;
+  }
+
+  .price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: $dark-brown;
+    margin: 12px 0;
+  }
+
+  .stock {
+    color: #555;
+    margin-bottom: 16px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  h2 {
+    margin: 0 0 24px;
+    color: $coffee-brown;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+}
