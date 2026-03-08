@@ -27,11 +27,9 @@ function App() {
     loadProducts();
   }, []);
 
-  // Фильтрация и поиск
   useEffect(() => {
     let filtered = products;
 
-    // Поиск по названию
     if (searchTerm) {
       filtered = filtered.filter(product =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -39,7 +37,6 @@ function App() {
       );
     }
 
-    // Фильтр по категории
     if (selectedCategory !== 'все') {
       filtered = filtered.filter(product => product.category === selectedCategory);
     }
@@ -74,23 +71,21 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1>MIX Сoffee</h1>
+        <h1>MIX Coffee</h1>
       </header>
 
-      {/* КНОПКА ДОБАВИТЬ */}
       <div className="add-button-container">
         <button className="btn btn-add" onClick={() => openModal()}>
           + Добавить позицию в меню
         </button>
       </div>
 
-      {/* ПОИСК И КАТЕГОРИИ */}
       <div className="controls">
         <div className="search-container">
           <input
             type="text"
             className="search-input"
-            placeholder="🔍 Поиск по названию или описанию..."
+            placeholder="Поиск по названию или описанию..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -126,3 +121,4 @@ function App() {
 }
 
 export default App;
+

@@ -8,31 +8,42 @@ export default function ProductModal({ open, product, onClose, onSave }) {
     price: '',
     stock: ''
   });
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     if (product) {
       setForm({
-        title: product.title,
-        category: product.category,
-        description: product.description,
-        price: product.price,
-        stock: product.stock
+        title: product.title || '',
+        category: product.category || '',
+        description: product.description || '',
+        price: product.price || '',
+        stock: product.stock || ''
       });
     } else {
-      setForm({ title: '', category: '', description: '', price: '', stock: '' });
+      setForm({
+        title: '',
+        category: '',
+        description: '',
+        price: '',
+        stock: ''
+      });
     }
-  }, [product]);
+    setImageFile(null);
+  }, [product, open]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      title: form.title.trim(),
-      category: form.category.trim(),
-      description: form.description.trim(),
-      price: Number(form.price),
-      stock: Number(form.stock)
-    };
+    const data = new FormData();
+    data.append('title', form.title.trim());
+    data.append('category', form.category.trim());
+    data.append('description', form.description.trim());
+    data.append('price', String(Number(form.price)));
+    data.append('stock', String(Number(form.stock)));
+
+    if (imageFile) {
+      data.append('image', imageFile);
+    }
 
     try {
       const url = product ? `/api/products/${product.id}` : '/api/products';
@@ -40,15 +51,15 @@ export default function ProductModal({ open, product, onClose, onSave }) {
 
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: data
       });
 
       if (res.ok) {
-        onSave();
+        await onSave();
         onClose();
       } else {
-        alert('Ошибка при сохранении');
+        const errorData = await res.json().catch(() => ({}));
+        alert(errorData.error || 'Ошибка при сохранении');
       }
     } catch (err) {
       alert('Не удалось сохранить позицию');
@@ -61,6 +72,7 @@ export default function ProductModal({ open, product, onClose, onSave }) {
     <div className="modal-overlay">
       <div className="modal">
         <h2>{product ? 'Редактировать' : 'Новая позиция'}</h2>
+
         <form onSubmit={handleSubmit}>
           <input
             name="title"
@@ -69,6 +81,7 @@ export default function ProductModal({ open, product, onClose, onSave }) {
             placeholder="Название"
             required
           />
+
           <input
             name="category"
             value={form.category}
@@ -76,6 +89,7 @@ export default function ProductModal({ open, product, onClose, onSave }) {
             placeholder="Категория"
             required
           />
+
           <textarea
             name="description"
             value={form.description}
@@ -83,29 +97,44 @@ export default function ProductModal({ open, product, onClose, onSave }) {
             placeholder="Описание"
             required
           />
+
           <input
             type="number"
             name="price"
             value={form.price}
             onChange={e => setForm({ ...form, price: e.target.value })}
             placeholder="Цена"
+            min="1"
             required
           />
+
           <input
             type="number"
             name="stock"
             value={form.stock}
             onChange={e => setForm({ ...form, stock: e.target.value })}
             placeholder="Остаток"
+            min="0"
             required
           />
 
+          <input
+            type="file"
+            accept="image/*"
+            onChange={e => setImageFile(e.target.files[0] || null)}
+          />
+
           <div className="modal-buttons">
-            <button type="submit" className="btn primary">Сохранить</button>
-            <button type="button" onClick={onClose}>Отмена</button>
+            <button type="submit" className="btn btn-add">
+              Сохранить
+            </button>
+            <button type="button" className="btn delete" onClick={onClose}>
+              Отмена
+            </button>
           </div>
         </form>
       </div>
     </div>
   );
 }
+

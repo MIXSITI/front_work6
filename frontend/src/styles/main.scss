@@ -1,4 +1,3 @@
-// ===== ПЕРЕМЕННЫЕ =====
 $bg-body: #f9f5f0;
 $color-primary: #8b5a2b;
 $color-accent: #f0c27b;
@@ -6,7 +5,6 @@ $color-danger: #e26a6a;
 $radius-card: 12px;
 $radius-btn: 6px;
 
-// ===== МИКСИН ДЛЯ КНОПОК =====
 @mixin btn-base($bg, $color: #fff) {
   padding: 8px 14px;
   border-radius: $radius-btn;
@@ -23,7 +21,6 @@ $radius-btn: 6px;
   }
 }
 
-// ===== БАЗОВЫЕ СТИЛИ =====
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -48,7 +45,6 @@ body {
   }
 }
 
-// ===== КНОПКА "ДОБАВИТЬ" (ИСПРАВЛЕНО) =====
 .add-button-container {
   text-align: center;
   margin-bottom: 20px;
@@ -56,12 +52,11 @@ body {
 
 .btn-add {
   @include btn-base($color-primary);
-  padding: 12px 24px; // Больше кнопка
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 500;
 }
 
-// ===== ПОИСК И КАТЕГОРИИ =====
 .controls {
   margin-bottom: 30px;
   display: flex;
@@ -114,14 +109,12 @@ body {
   }
 }
 
-// ===== СЕТКА КАРТОЧЕК =====
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
 }
 
-// ===== КАРТОЧКА ТОВАРА =====
 .menu-card {
   background: #fff;
   border-radius: $radius-card;
@@ -131,6 +124,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
 
   h3 {
     margin: 0 0 8px;
@@ -155,7 +149,23 @@ body {
   }
 }
 
-// ===== КНОПКИ В КАРТОЧКАХ =====
+.product-image {
+  width: calc(100% + 36px);
+  margin: -16px -18px 12px;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  background: #eee;
+}
+
+.product-image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7b6d66;
+  font-size: 14px;
+}
+
 .btn {
   &.edit {
     @include btn-base($color-accent, #3c2a21);
@@ -168,7 +178,13 @@ body {
   }
 }
 
-// ===== МОДАЛКА =====
+.empty-text {
+  text-align: center;
+  color: #7b6d66;
+  font-size: 18px;
+  margin-top: 40px;
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -176,6 +192,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .modal {
@@ -217,5 +234,6 @@ body {
     }
   }
 }
+
 
 
