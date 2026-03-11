@@ -112,19 +112,6 @@ http://localhost:3001/api-docs
 
 ---
 
-## Объект товара (JSON)
-
-```json
-{
-  "id": "abc123",
-  "title": "Капучино",
-  "category": "Напитки",
-  "description": "Классический капучино с нежной пенкой",
-  "price": 320,
-  "stock": 20,
-  "image": "/uploads/example.jpg"
-}
-```
 ### 2. Запуск frontend
 
 ```bash
