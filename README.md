@@ -34,11 +34,6 @@
 - nanoid
 - CORS
 - Логирование запросов + обработка ошибок
-
-**Инструменты**
-- Postman (тестирование)
-- npm / Git
-
 ---
 
 ## Основной функционал
@@ -101,35 +96,11 @@ npm install
 npm start
 ```
 
-Backend будет доступен по адресу:
-
-```bash
-http://localhost:3001
-```
-
 Swagger-документация:
 
 ```bash
 http://localhost:3001/api-docs
 ```
-
-### 2. Запуск frontend
-
-```bash
-cd frontend
-npm install
-npm start
-```
-
-Frontend будет доступен по адресу:
-
-```bash
-http://localhost:3000
-```
-
----
-
-## API эндпоинты
 
 | Метод | Путь | Описание |
 |-------|------|----------|
@@ -154,12 +125,25 @@ http://localhost:3000
   "image": "/uploads/example.jpg"
 }
 ```
+### 2. Запуск frontend
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Frontend будет доступен по адресу:
+
+```bash
+http://localhost:3000
+```
 
 ---
 
 ## Работа с изображениями
 
-В проекте используются два варианта изображений:
+В проекте используется хранение изображений:
 
 1. **Стандартные изображения**  
    Хранятся в папке `frontend/public/images` и подключаются по путям вида:
@@ -172,46 +156,6 @@ http://localhost:3000
 /images/kruasan.jpg
 /images/chiskeyk.jpg
 ```
----
-
-## Тестирование в Postman
-Примеры запросов:
-
-### Получить все товары
-```http
-GET http://localhost:3001/api/products
-```
-
-### Получить товар по ID
-```http
-GET http://localhost:3001/api/products/{id}
-```
-
-### Создать новый товар
-```http
-POST http://localhost:3001/api/products
-Content-Type: multipart/form-data
-```
-
-Поля формы:
-- `title`
-- `category`
-- `description`
-- `price`
-- `stock`
-- `image`
-
-### Обновить товар
-```http
-PATCH http://localhost:3001/api/products/{id}
-Content-Type: multipart/form-data
-```
-
-### Удалить товар
-```http
-DELETE http://localhost:3001/api/products/{id}
-```
-
 ---
 
 ## Категории товаров
