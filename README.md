@@ -1,286 +1,337 @@
-﻿Архитиктура
+# MIX Coffee — Веб-приложение для управления меню кофейни
 
-coffee-shop/
+Итоговый проект по курсу **«Фронтенд и бэкенд разработка»** (4 семестр, 2025/2026).  
+Проект объединяет результаты практических занятий **1–5** в единое полнофункциональное веб-приложение — каталог меню кофейни с возможностью просмотра, поиска, фильтрации, добавления, редактирования и удаления позиций.
 
+---
+
+## Стек технологий
+
+| Слой | Технологии |
+|------|------------|
+| Фронтенд | React, Fetch API, SASS/SCSS |
+| Бэкенд | Node.js, Express.js, nanoid |
+| Загрузка файлов | Multer |
+| Документация API | Swagger (`swagger-jsdoc` + `swagger-ui-express`) |
+| Тестирование | Postman |
+
+---
+
+## Связь с практическими занятиями
+
+### Занятие 1 — CSS-препроцессоры (SASS)
+Файлы: `frontend/src/styles/_variables.scss`, `frontend/src/styles/main.scss`  
+Используются для оформления интерфейса сайта, карточек товаров, кнопок, модального окна и общей цветовой схемы приложения.
+
+- **Переменные**: цвета, радиусы, базовые размеры и стилистические значения интерфейса.
+- **Миксины**: `card`, `button`, `btn-base` для переиспользуемых блоков стилей.
+- **Вложенность**: стили для `.app`, `.menu-card`, `.modal`, `.categories`, `.product-image`, `.btn` и других блоков.
+- **UI-оформление**: карточки товаров, фильтры по категориям, форма поиска, модальное окно создания и редактирования.
+
+### Занятие 2 — Сервер на Node.js + Express
+Файл: `backend/app.js`  
+Реализует backend-приложение для хранения и обработки данных меню кофейни.
+
+- **5 CRUD-маршрутов**:
+  - `GET /api/products`
+  - `GET /api/products/:id`
+  - `POST /api/products`
+  - `PATCH /api/products/:id`
+  - `DELETE /api/products/:id`
+- **Middleware**:
+  - `express.json()`
+  - `cors()`
+  - кастомный логгер запросов
+  - `express.static()` для раздачи изображений
+- **Обработка файлов**:
+  - загрузка изображений через `multer`
+  - сохранение файлов в `backend/public/uploads`
+- **Обработчики ошибок**:
+  - `404` для неизвестных маршрутов
+  - глобальный обработчик ошибок `500`
+
+### Занятие 3 — JSON и API
+Файл: `frontend/src/api/api.js`  
+Используется для работы фронтенда с backend API.
+
+- Все данные товаров передаются в формате **JSON**
+- Выполняются запросы через **Fetch API**
+- Реализованы функции:
+  - `getProducts()`
+  - `deleteProduct(id)`
+- Для создания и редактирования товаров используется `FormData`, так как запросы могут содержать изображение
+
+### Занятие 4 — API + React
+Файлы: `frontend/src/components/`, `frontend/src/App.jsx`  
+Реализуют пользовательский интерфейс и связывают его с backend API.
+
+- **React-компоненты**:
+  - `ProductList`
+  - `ProductItem`
+  - `ProductModal`
+  - `App`
+- Полный **CRUD через UI**:
+  - просмотр списка товаров
+  - добавление новой позиции
+  - редактирование позиции
+  - удаление позиции
+- **Фильтрация** по категориям
+- **Поиск** по названию и описанию
+- **Модальное окно** для добавления и редактирования товара
+
+### Занятие 5 — Расширенный REST API (Swagger)
+Файл: `backend/app.js`  
+Содержит JSDoc-аннотации для автоматической генерации документации API.
+
+- Описана схема **Product**
+- Задокументированы все **5 эндпоинтов**
+- Для каждого маршрута указаны:
+  - параметры
+  - тело запроса
+  - возможные коды ответов
+- Интерактивная документация доступна по адресу:
+  - **http://localhost:3001/api-docs**
+
+---
+
+## Возможности проекта
+
+- Просмотр меню кофейни
+- Поиск товаров по названию и описанию
+- Фильтрация по категориям
+- Добавление новой позиции
+- Редактирование существующей позиции
+- Удаление товара
+- Загрузка изображения товара
+- Просмотр Swagger-документации API
+
+---
+
+## Структура проекта
+
+```bash
+WORK 6/
 ├── backend/
-
-│   ├── app.js                  ← Express + Swagger + CRUD товаров
-
-│   └── package.json
-
+│   ├── public/
+│   │   └── uploads/                  # Загруженные изображения
+│   ├── app.js                        # Express-сервер + API + Swagger
+│   ├── requests.http                 # Тестовые HTTP-запросы
+│   ├── package.json
+│   └── package-lock.json
+│
 ├── frontend/
-
-│   ├── public/index.html
-
+│   ├── postman/
+│   │   └── coffee-shop.postman_collection.json
+│   ├── public/
+│   │   ├── images/                   # Локальные изображения товаров
+│   │   └── index.html
 │   ├── src/
-
-│   │   ├── api/api.js          ← fetch-запросы к API
-
+│   │   ├── api/
+│   │   │   └── api.js                # Работа с API
 │   │   ├── components/
-
-│   │   │   ├── ProductItem.jsx ← карточка товара (SASS)
-
-│   │   │   ├── ProductModal.jsx
-
-│   │   │   └── ProductList.jsx
-
-│   │   ├── styles/main.scss    ← ПРАКТИКА №1: SASS
-
-│   │   ├── App.jsx             ← ПРАКТИКА №4: React CRUD
-
+│   │   │   ├── ProductItem.jsx       # Карточка товара
+│   │   │   ├── ProductList.jsx       # Список товаров
+│   │   │   └── ProductModal.jsx      # Модальное окно формы
+│   │   ├── styles/
+│   │   │   ├── _variables.scss       # Переменные и миксины
+│   │   │   └── main.scss             # Основные стили приложения
+│   │   ├── App.jsx                   # Главный компонент
+│   │   ├── index.css
 │   │   └── index.js
-
-│   └── package.json            
-
-├── requests.http               ← ПРАКТИКА №3: Postman
-
+│   ├── package.json
+│   └── package-lock.json
+│
 └── README.md
+```
 
-Запуск
+---
 
-backend: npm start
+## Запуск проекта
 
-backend: npm install
+### 1. Запуск backend
 
-backend: npm i express nanoid
+```bash
+cd backend
+npm install
+npm start
+```
 
-backend: npm i -D swagger-jsdoc swagger-ui-express
+Backend будет доступен по адресу:
 
-frontend: npm install
+```bash
+http://localhost:3001
+```
 
-frontend: npm start
+Swagger-документация:
 
-\------------------------------
+```bash
+http://localhost:3001/api-docs
+```
 
-- **ПР 1** — CSS-препроцессоры (SASS + BEM + миксины) - создаёт визуально оформление(цвет, размер окна, шрифта) за счёт миксинов и вложенности (https://github.com/MIXSITI/front_work1)
-- **ПР 2** — Сервер на Node.js + Express - создание сервера для хранения файлов в формате JSON (https://github.com/MIXSITI/front_work2)
-- **ПР 3** — JSON, внешние API, Postman - использование Postman для тестирования серверной части сайта (GET/POST/DELETE/PATCH запросы) (https://github.com/MIXSITI/front_work3)
-- **ПР 4** — API + React (полноценный магазин) - использование фреймворка REACT для визуализации серверных данных(формирование карточки товара в режиме фронтенда посредством пользовательского интерфейса) (https://github.com/MIXSITI/front_work4)
-- **ПР 5** — Расширенный REST API + Swagger - документирование API приложения при помощи инструмента Swagger (https://github.com/MIXSITI/front_work5)
-- **ПР 6** - Интеграция компонентов с 1 по 5 в модуль-серверное приложение по продаже технике
-  
-\------------------------------
+### 2. Запуск frontend
 
-ПРАКТИКА №1: CSS-ПРЕПРОЦЕССОРЫ (SASS)
+```bash
+cd frontend
+npm install
+npm start
+```
 
-Результат: Переменные, миксины, вложенность для карточек товаров
+Frontend будет доступен по адресу:
 
-Файл: frontend/src/styles/main.scss
+```bash
+http://localhost:3000
+```
 
-Переменные:
+---
 
+## API эндпоинты
 
-$bg-body: #f9f5f0;           // Бежевый фон
+| Метод | Путь | Описание |
+|-------|------|----------|
+| `GET` | `/api/products` | Получить список всех товаров |
+| `GET` | `/api/products/:id` | Получить товар по ID |
+| `POST` | `/api/products` | Создать новый товар |
+| `PATCH` | `/api/products/:id` | Обновить товар |
+| `DELETE` | `/api/products/:id` | Удалить товар |
 
-$color-primary: #8b5a2b;      // Коричневый кофе
+---
 
-$color-accent: #f0c27b;       // Бежевые кнопки
+## Объект товара (JSON)
 
-$radius-card: 12px;           // Скругления
-
-Миксин кнопок:
-
-
-@mixin btn-base($bg, $color: #fff) {
-
-padding: 8px 14px; border-radius: 6px;
-
-background: $bg; color: $color;
-
-&:hover { background: darken($bg, 8%); }
-
-}
-
-.btn-add { @include btn-base($color-primary); }
-
-Вложенность (карточка товара):
-
-
-.menu-card {
-
-padding: 16px; border-radius: $radius-card;
-
-h3 { font-size: 20px; color: #3c2a21; }
-
-p { strong { color: #3c2a21; } }
-
-&\_\_actions { display: flex; gap: 10px; }
-
-}
-
-<img width="346" height="325" alt="image" src="https://github.com/user-attachments/assets/017e3b69-0803-43c6-9c73-a0580577d92a" />
-
-\----------------------------
-
-ПРАКТИКА №2: NODE.JS + EXPRESS
-
-Цель: REST API с CRUD-операциями
-
-Файл: backend/app.js
-
-Middleware:
-
-js
-
-app.use(express.json());     // req.body
-
-app.use(cors({origin: '3000'})); // React
-
-app.use((req, res, next) => {   // Логи
-
-console.log(`${req.method} ${req.url}`);
-
-});
-
-In-memory БД (6 товаров):
-
-js
-
-let products = [{id: nanoid(6), title: 'Капучино', ...}];
-
-CRUD (5 эндпоинтов):
-
-js
-
-GET    /api/products           // res.json(products)
-
-GET    /:id                    // req.params.id
-
-POST   /api/products           // req.body → push()
-
-PATCH  /:id                    // Object.assign(req.body)
-
-DELETE /:id                    // splice(req.params.id)
-
-<img width="747" height="521" alt="image" src="https://github.com/user-attachments/assets/34e378e2-2243-4000-b779-07155ebd749c" />
-
-\------------------------------------------
-
-ПРАКТИКА №3: JSON + POSTMAN
-
-Цель: Формат JSON, тестирование API
-
-JSON-структура товара:
-
-json
-
+```json
 {
-
-"id": "abc123", "title": "Капучино",
-
-"category": "Напитки", "price": 320, "stock": 20
-
+  "id": "abc123",
+  "title": "Капучино",
+  "category": "Напитки",
+  "description": "Классический капучино с нежной пенкой",
+  "price": 320,
+  "stock": 20,
+  "image": "/uploads/example.jpg"
 }
+```
 
-Коллекция Postman (requests.http):
+---
 
-text
+## Работа с изображениями
 
-GET  localhost:3001/api/products    → 200 [6 товаров]
+В проекте используются два варианта изображений:
 
-POST localhost:3001/api/products    → 201 {"id": "new456", ...}
+1. **Стандартные изображения**  
+   Хранятся в папке `frontend/public/images` и подключаются по путям вида:
 
-DELETE localhost:3001/api/products/abc123 → 204
+```bash
+/images/kapuchino.jpg
+/images/latte.jpg
+/images/aspreso.jpg
+/images/raf.jpg
+/images/kruasan.jpg
+/images/chiskeyk.jpg
+```
 
-<img width="1391" height="1031" alt="image" src="https://github.com/user-attachments/assets/266abe85-0495-4edc-a539-9d76730cbc0d" />
+2. **Загруженные пользователем изображения**  
+   Сохраняются через backend в папку:
 
-\----------------------------------------
+```bash
+backend/public/uploads
+```
 
-ПРАКТИКА №4: API + REACT
+и доступны по путям вида:
 
-Цель: Frontend интеграция с API (fetch + state)
+```bash
+/uploads/filename.jpg
+```
 
-API-клиент (api/api.js):
+---
 
-js
+## Тестирование в Postman
 
-export const getProducts = () => fetch('/api/products').then(r => r.json());
+В проекте присутствует коллекция Postman:
 
-React (App.jsx):
+```bash
+frontend/postman/coffee-shop.postman_collection.json
+```
 
-jsx
+Примеры запросов:
 
-const [products, setProducts] = useState([]);
+### Получить все товары
+```http
+GET http://localhost:3001/api/products
+```
 
-useEffect(() => loadProducts(), []); // GET
+### Получить товар по ID
+```http
+GET http://localhost:3001/api/products/{id}
+```
 
-const handleDelete = async id => {    // DELETE
+### Создать новый товар
+```http
+POST http://localhost:3001/api/products
+Content-Type: multipart/form-data
+```
 
-await deleteProduct(id);
+Поля формы:
+- `title`
+- `category`
+- `description`
+- `price`
+- `stock`
+- `image`
 
-setProducts(prev => prev.filter(...));
+### Обновить товар
+```http
+PATCH http://localhost:3001/api/products/{id}
+Content-Type: multipart/form-data
+```
 
-};
+### Удалить товар
+```http
+DELETE http://localhost:3001/api/products/{id}
+```
 
-Компоненты:
+---
 
-text
+## Категории товаров
 
-App → ProductList → ProductItem (карточки)
+| Категория | Примеры |
+|-----------|---------|
+| Напитки | Капучино, Латте, Эспрессо, Раф |
+| Выпечка | Круассан |
+| Десерты | Чизкейк |
 
-↓
+---
 
-ProductModal (POST/PATCH)
+## Особенности реализации
 
-Связь клиент-сервер:
+- Backend использует массив `products` как временное хранилище данных
+- После перезапуска сервера добавленные и изменённые товары сбрасываются
+- Swagger позволяет просматривать и тестировать API через браузер
+- На фронтенде реализован удобный интерфейс для управления меню кофейни
+- Проект разделён на frontend и backend части
 
-text
+---
 
-package.json: "proxy": "http://localhost:3001"
+## Ограничения текущей версии
 
-Backend CORS: origin: 'http://localhost:3000'
+- Данные товаров пока не сохраняются в базу данных
+- После перезапуска backend пользовательские изменения теряются
+- Категории товаров пока заданы вручную на фронтенде
+- Часть API-логики ещё можно централизовать в одном слое
 
-<img width="1603" height="931" alt="image" src="https://github.com/user-attachments/assets/8f1e9c74-f468-4467-a2b1-c1542ecf0ed2" />
+---
 
-\--------------------------------------------
+## Возможные улучшения
 
-ПРАКТИКА №5: SWAGGER/OPENAPI
+- Перенести хранение данных в `JSON`-файл или базу данных
+- Добавить сохранение товаров между перезапусками сервера
+- Вынести создание и редактирование товаров в общий API-слой
+- Добавить валидацию форм на фронтенде
+- Реализовать уведомления вместо `alert()`
+- Улучшить доступность модального окна
+- Добавить пагинацию или сортировку товаров
 
-Цель: Автоматическая документация API
+---
 
-Установка: npm i swagger-jsdoc swagger-ui-express
+## Автор
 
-JSDoc → OpenAPI (app.js):
-
-js
-
-/\*\*
-
-* @swagger
-* /api/products:
-* get:
-* summary: Получить товары кофейни
-* responses:
-* 200:
-* content:
-* application/json:
-* schema:
-* type: array
-* items: { $ref: '#/components/schemas/Product' }
-
-\*/
-
-Схема Product:
-
-js
-
-/\*\*
-
-* @swagger
-* components:
-* schemas:
-* Product:
-* type: object
-* properties:
-* id: { type: string }
-* title: { type: string, example: "Капучино" }
-* price: { type: number, example: 320 }
-
-\*/
-
-Swagger UI: localhost:3001/api-docs
-
-<img width="1868" height="960" alt="image" src="https://github.com/user-attachments/assets/39855cff-5846-41ff-af0b-bafe2641eb83" />
-
-
-
+Проект выполнен в рамках учебной дисциплины  
+**«Фронтенд и бэкенд разработка»**, 4 семестр, 2025/2026.
