@@ -10,13 +10,11 @@ const fs = require('fs');
 const app = express();
 const port = 3001;
 
-// Создаём папку для uploads, если нет
 const uploadDir = path.join(__dirname, 'public/uploads');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Настройка multer для хранения изображений
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir);
@@ -46,10 +44,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Сервировка статических файлов для изображений
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
-// Логирование запросов
 app.use((req, res, next) => {
   res.on('finish', () => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${res.statusCode} ${req.originalUrl}`);
@@ -57,7 +53,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Данные товаров
 let products = [
   {
     id: nanoid(6),

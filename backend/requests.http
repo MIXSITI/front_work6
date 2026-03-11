@@ -8,22 +8,9 @@ GET http://localhost:3001/api/products/a1B2c3
 POST http://localhost:3001/api/products
 Content-Type: application/json
 
-{
-  "title": "Флэт уайт",
-  "category": "Напитки",
-  "description": "Кофе на основе эспрессо с молоком",
-  "price": 350,
-  "stock": 10
-}
-
 ### Частично обновить товар
 PATCH http://localhost:3001/api/products/a1B2c3
 Content-Type: application/json
-
-{
-  "price": 360,
-  "stock": 8
-}
 
 ### Удалить товар
 DELETE http://localhost:3001/api/products/a1B2c3
