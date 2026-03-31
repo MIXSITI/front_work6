@@ -47,7 +47,7 @@ export default function ProductModal({ open, product, onClose, onSave }) {
 
     try {
       const url = product ? `/api/products/${product.id}` : '/api/products';
-      const method = product ? 'PUT' : 'POST';
+      const method = product ? 'PATCH' : 'POST';
 
       const res = await fetch(url, {
         method,

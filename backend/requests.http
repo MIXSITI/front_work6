@@ -1,24 +1,4 @@
-### Регистрация пользователя
-POST http://localhost:3001/api/auth/register
-Content-Type: application/json
-
-{
-  "email": "student@example.com",
-  "first_name": "Svetlana",
-  "last_name": "Student",
-  "password": "qwerty123"
-}
-
-### Вход пользователя
-POST http://localhost:3001/api/auth/login
-Content-Type: application/json
-
-{
-  "email": "student@example.com",
-  "password": "qwerty123"
-}
-
-### Получить список всех товаров
+﻿### Получить список всех товаров кофейни
 GET http://localhost:3001/api/products
 
 ### Получить товар по ID
@@ -28,25 +8,9 @@ GET http://localhost:3001/api/products/a1B2c3
 POST http://localhost:3001/api/products
 Content-Type: application/json
 
-{
-  "title": "Американо",
-  "category": "Напитки",
-  "description": "Классический американо",
-  "price": 210,
-  "stock": 25
-}
-
-### Обновить товар по ID
-PUT http://localhost:3001/api/products/a1B2c3
+### Частично обновить товар
+PATCH http://localhost:3001/api/products/a1B2c3
 Content-Type: application/json
-
-{
-  "title": "Американо XL",
-  "category": "Напитки",
-  "description": "Увеличенная порция американо",
-  "price": 260,
-  "stock": 18
-}
 
 ### Удалить товар
 DELETE http://localhost:3001/api/products/a1B2c3
